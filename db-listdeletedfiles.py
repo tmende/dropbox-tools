@@ -3,6 +3,8 @@
 APPKEYSECRETFILE = ".dblistdeletedfiles.appkey.p"
 TOKENFILE=".dblistdeletedfiles.token.p"
 
+ROOTFOLDER = "/"
+
 # Include the Dropbox SDK
 import dropbox, os, pickle
 
@@ -52,8 +54,9 @@ def read_directory(mypath, client):
 if __name__ == "__main__":
 	client = authenticate()	
 
-	deletedfiles = read_directory('/', client)
+	deletedfiles = read_directory(ROOTFOLDER, client)
 	outfile=file("deletedfiles.txt","w")
-	outfile.write("%s\n" % item for item in deletedfiles)
+	for item in deletedfiles:
+		outfile.write("%s\n" % item)
 	outfile.close()
 
